@@ -11,8 +11,17 @@ const taskRoutes = require('./routes/task.routes');
 const app = express();
 
 app.use(helmet({ contentSecurityPolicy: false }));
-app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
-app.use(express.json());
+app.use(cors({
+  origin: [
+    'https://primetrade-eta.vercel.app',
+    'http://localhost:5173'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+app.options('*', cors());app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // API Routes
