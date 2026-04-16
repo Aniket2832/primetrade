@@ -1,3 +1,13 @@
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger/swagger');
+require('dotenv').config();
+
+const authRoutes = require('./routes/auth.routes');
+const taskRoutes = require('./routes/task.routes');
+
 const app = express();
 
 // CORS — must be first
@@ -11,20 +21,6 @@ app.use((req, res, next) => {
   }
   next();
 });
-
-app.use(cors(corsOptions)); // keep this too
-app.use(helmet({ contentSecurityPolicy: false }));
-// ... rest of your code
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const swaggerUi = require('swagger-ui-express');
-const swaggerSpec = require('./swagger/swagger');
-require('dotenv').config();
-
-const authRoutes = require('./routes/auth.routes');
-const taskRoutes = require('./routes/task.routes');
-
 
 const corsOptions = {
   origin: [
